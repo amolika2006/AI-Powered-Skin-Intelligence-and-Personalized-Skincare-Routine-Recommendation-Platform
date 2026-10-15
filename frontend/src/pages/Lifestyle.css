@@ -1,0 +1,439 @@
+.lifestyle-page {
+  min-height: 100vh;
+  background: #f8f5f8;
+  padding: 45px 25px 70px;
+  box-sizing: border-box;
+  color: #302431;
+}
+
+.lifestyle-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: auto;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.lifestyle-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.lifestyle-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 17px;
+
+  background: linear-gradient(
+    135deg,
+    #e866a5,
+    #c43d7c
+  );
+
+  color: white;
+  font-size: 27px;
+
+  box-shadow: 0 10px 25px rgba(196, 61, 124, 0.2);
+}
+
+.lifestyle-label {
+  color: #c03c78;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+.lifestyle-header h1 {
+  margin: 4px 0;
+
+  color: #382532;
+
+  font-size: 31px;
+}
+
+.lifestyle-header p {
+  margin: 0;
+
+  color: #8c7b87;
+
+  font-size: 14px;
+}
+
+
+/* ================================
+   INFO
+================================ */
+
+.lifestyle-info {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 17px 20px;
+
+  margin-bottom: 22px;
+
+  background: #fff7fa;
+
+  border: 1px solid #efd5e2;
+
+  border-radius: 15px;
+}
+
+.info-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f6dfea;
+
+  border-radius: 11px;
+
+  font-size: 19px;
+}
+
+.lifestyle-info strong {
+  color: #6b294b;
+
+  font-size: 14px;
+}
+
+.lifestyle-info p {
+  margin: 3px 0 0;
+
+  color: #8d7884;
+
+  font-size: 12px;
+}
+
+
+/* ================================
+   SECTIONS
+================================ */
+
+.lifestyle-section {
+  background: white;
+
+  border: 1px solid #eee3ea;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  margin-bottom: 18px;
+
+  box-shadow: 0 6px 20px rgba(72, 36, 60, 0.04);
+}
+
+.section-heading {
+  display: flex;
+
+  gap: 14px;
+
+  margin-bottom: 23px;
+}
+
+.section-heading > span {
+  color: #c03c78;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  padding-top: 3px;
+}
+
+.section-heading h2 {
+  margin: 0 0 4px;
+
+  color: #382532;
+
+  font-size: 18px;
+}
+
+.section-heading p {
+  margin: 0;
+
+  color: #94828d;
+
+  font-size: 12px;
+}
+
+
+/* ================================
+   GRID
+================================ */
+
+.lifestyle-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+}
+
+
+/* ================================
+   FIELDS
+================================ */
+
+.lifestyle-field {
+  padding: 17px;
+
+  background: #fcfafb;
+
+  border: 1px solid #eee2e9;
+
+  border-radius: 14px;
+
+  transition: 0.2s ease;
+}
+
+.lifestyle-field:hover {
+  border-color: #dfbfd0;
+
+  box-shadow: 0 5px 16px rgba(72, 36, 60, 0.04);
+}
+
+.field-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 14px;
+}
+
+.field-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #f8e7ef;
+
+  font-size: 19px;
+}
+
+.field-title label {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #574550;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field-title small {
+  color: #a08e99;
+
+  font-size: 10px;
+}
+
+
+/* ================================
+   SELECT
+================================ */
+
+.lifestyle-field select {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 12px 13px;
+
+  border: 1px solid #e4d9e0;
+
+  border-radius: 10px;
+
+  background: white;
+
+  color: #55414c;
+
+  font-size: 12px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.lifestyle-field select:focus {
+  border-color: #cf6b98;
+
+  box-shadow: 0 0 0 3px rgba(207, 107, 152, 0.08);
+}
+
+
+/* ================================
+   SUCCESS
+================================ */
+
+.lifestyle-success {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 17px 19px;
+
+  margin-bottom: 20px;
+
+  background: #f1faf5;
+
+  border: 1px solid #ccebd9;
+
+  border-radius: 14px;
+}
+
+.success-icon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #d8f2e3;
+
+  color: #27834e;
+
+  font-weight: bold;
+}
+
+.lifestyle-success strong {
+  color: #267044;
+
+  font-size: 13px;
+}
+
+.lifestyle-success p {
+  margin: 3px 0 0;
+
+  color: #668473;
+
+  font-size: 11px;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.lifestyle-actions {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: 22px;
+}
+
+.lifestyle-back,
+.lifestyle-save {
+  padding: 13px 23px;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.lifestyle-back {
+  background: white;
+
+  color: #765f6c;
+
+  border: 1px solid #e5d9e0;
+}
+
+.lifestyle-back:hover {
+  background: #f7f0f4;
+}
+
+.lifestyle-save {
+  border: none;
+
+  background: #572543;
+
+  color: white;
+
+  box-shadow: 0 7px 18px rgba(87, 37, 67, 0.16);
+}
+
+.lifestyle-save:hover {
+  background: #71315b;
+
+  transform: translateY(-2px);
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 750px) {
+
+  .lifestyle-page {
+    padding: 30px 18px 50px;
+  }
+
+  .lifestyle-header h1 {
+    font-size: 26px;
+  }
+
+  .lifestyle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lifestyle-actions {
+    flex-direction: column-reverse;
+
+    gap: 12px;
+  }
+
+  .lifestyle-back,
+  .lifestyle-save {
+    width: 100%;
+  }
+
+}

@@ -1,0 +1,421 @@
+/* =========================================
+   AI SKIN INTELLIGENCE DASHBOARD
+========================================= */
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #f8f5f8;
+  color: #302431;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.dashboard-header {
+  height: 82px;
+  padding: 0 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+  border-bottom: 1px solid #eee3ea;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+
+/* Brand */
+
+.dashboard-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    #e866a5,
+    #c43d7c
+  );
+
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+
+  box-shadow: 0 8px 18px rgba(196, 61, 124, 0.2);
+}
+
+.dashboard-brand h1 {
+  margin: 0;
+
+  color: #4a2142;
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.dashboard-brand p {
+  margin: 4px 0 0;
+
+  color: #9a8793;
+  font-size: 12px;
+}
+
+
+/* Logout */
+
+.logout-button {
+  padding: 11px 23px;
+
+  border: none;
+  border-radius: 11px;
+
+  background: #f9e7ef;
+  color: #b63470;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #f2d5e2;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.dashboard-content {
+  width: 100%;
+  max-width: 1050px;
+
+  margin: 0;
+  padding: 45px 45px 70px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   WELCOME SECTION
+========================================= */
+
+.dashboard-welcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+
+  margin-bottom: 35px;
+}
+
+.welcome-icon {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: #f9e5ee;
+
+  font-size: 24px;
+}
+
+.welcome-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #c03c78;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.dashboard-welcome h2 {
+  margin: 0;
+
+  color: #302431;
+
+  font-size: 31px;
+  line-height: 1.2;
+}
+
+.dashboard-welcome p {
+  max-width: 700px;
+
+  margin: 10px 0 0;
+
+  color: #8c7b87;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   SINGLE COLUMN
+========================================= */
+
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  width: 100%;
+}
+
+
+/* =========================================
+   DASHBOARD CARD
+========================================= */
+
+.dashboard-card {
+  width: 100%;
+  min-height: 145px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 22px;
+
+  padding: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #eee3ea;
+  border-radius: 20px;
+
+  box-shadow: 0 7px 25px rgba(72, 36, 60, 0.045);
+
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.dashboard-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+
+  right: -65px;
+  top: -65px;
+
+  background: rgba(196, 61, 124, 0.045);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #e6cad8;
+
+  box-shadow: 0 13px 30px rgba(72, 36, 60, 0.09);
+}
+
+
+/* =========================================
+   CARD ICON
+========================================= */
+
+.card-icon {
+  width: 54px;
+  height: 54px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: #fae8f0;
+
+  font-size: 24px;
+}
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.card-content {
+  flex: 1;
+
+  position: relative;
+  z-index: 2;
+}
+
+.dashboard-card h3 {
+  margin: 0 0 7px;
+
+  color: #342631;
+
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.dashboard-card p {
+  max-width: 720px;
+
+  margin: 0 0 17px;
+
+  color: #8c7b87;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   CARD BUTTON
+========================================= */
+
+.dashboard-card button {
+  min-width: 190px;
+
+  padding: 11px 17px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #572543;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.dashboard-card button:hover {
+  background: #71315b;
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================
+   AI CARDS
+========================================= */
+
+.ai-card {
+  background: linear-gradient(
+    105deg,
+    #fff8fb,
+    #ffffff
+  );
+
+  border-color: #efd4e1;
+}
+
+.ai-card .card-icon {
+  background: #f5dce8;
+}
+
+.ai-badge {
+  display: inline-block;
+
+  margin-bottom: 6px;
+
+  color: #c13c78;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .dashboard-header {
+    height: auto;
+
+    padding: 15px 20px;
+  }
+
+  .dashboard-brand h1 {
+    font-size: 18px;
+  }
+
+  .dashboard-content {
+    padding: 30px 20px 50px;
+  }
+
+  .dashboard-welcome h2 {
+    font-size: 25px;
+  }
+
+  .dashboard-card {
+    padding: 20px;
+
+    gap: 15px;
+  }
+
+  .card-icon {
+    width: 45px;
+    height: 45px;
+
+    font-size: 20px;
+  }
+
+  .dashboard-card button {
+    width: 100%;
+  }
+
+}
+/* Book Consultation card */
+.dashboard-card button {
+cursor: pointer;
+}
+
+.dashboard-card button:hover {
+transform: translateY(-2px);
+transition: 0.2s ease;
+}

@@ -1,0 +1,140 @@
+.progress-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #fff5f9, #f8f5ff);
+}
+
+.progress-card {
+  max-width: 1000px;
+  margin: auto;
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.progress-logo {
+  text-align: center;
+  font-size: 42px;
+}
+
+.progress-card h1 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.progress-subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #c2185b;
+}
+
+.progress-card form > button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #c2185b;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.progress-card form > button:hover {
+  opacity: 0.9;
+}
+
+.progress-card form > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.progress-message {
+  margin: 20px 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f1f8e9;
+  text-align: center;
+  font-weight: 600;
+}
+
+.progress-card h2 {
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+.progress-history {
+  display: grid;
+  gap: 18px;
+}
+
+.history-card {
+  padding: 20px;
+  border-radius: 15px;
+  background: #fafafa;
+  border: 1px solid #eee;
+}
+
+.history-card h3 {
+  margin-top: 0;
+  color: #c2185b;
+}
+
+.history-card p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.back-button {
+  margin-top: 25px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #555;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-card {
+    padding: 22px;
+  }
+}

@@ -19,7 +19,7 @@ function IngredientAssessment({ userId, onBackToDashboard }) {
         setError("");
 
         const response = await fetch(
-          "http://127.0.0.1:8000/ingredients"
+          "https://ai-powered-skin-intelligence-and-54n9.onrender.com/ingredients"
         );
 
         if (!response.ok) {
@@ -60,7 +60,7 @@ function IngredientAssessment({ userId, onBackToDashboard }) {
 
       // Get general ingredient information
       const ingredientResponse = await fetch(
-        `http://127.0.0.1:8000/ingredient/${encodeURIComponent(
+        `https://ai-powered-skin-intelligence-and-54n9.onrender.com/ingredient/${encodeURIComponent(
           selectedIngredient
         )}`
       );
@@ -75,7 +75,7 @@ function IngredientAssessment({ userId, onBackToDashboard }) {
 
       // Get personalized analysis
       const analysisResponse = await fetch(
-        `http://127.0.0.1:8000/ingredient-assessment/${userId}/${encodeURIComponent(
+        `https://ai-powered-skin-intelligence-and-54n9.onrender.com/ingredient-assessment/${userId}/${encodeURIComponent(
           selectedIngredient
         )}`
       );

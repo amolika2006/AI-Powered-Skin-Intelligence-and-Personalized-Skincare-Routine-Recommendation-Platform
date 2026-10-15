@@ -23,7 +23,7 @@ function ProgressTracking({ onBackToDashboard }) {
   useEffect(() => {
     if (!userId) return;
 
-    fetch(`http://127.0.0.1:8000/progress/${userId}`)
+    fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/progress/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load progress");
@@ -59,7 +59,7 @@ function ProgressTracking({ onBackToDashboard }) {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/progress",
+        "https://ai-powered-skin-intelligence-and-54n9.onrender.com/progress",
         {
           method: "POST",
           headers: {
@@ -102,7 +102,7 @@ function ProgressTracking({ onBackToDashboard }) {
 
       // Refresh history
       const historyResponse = await fetch(
-        `http://127.0.0.1:8000/progress/${userId}`
+        `https://ai-powered-skin-intelligence-and-54n9.onrender.com/progress/${userId}`
       );
 
       const historyData = await historyResponse.json();

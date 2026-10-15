@@ -7,7 +7,7 @@ function AdminDashboard({ onBackToDashboard }) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/admin/dashboard")
+    fetch("https://ai-powered-skin-intelligence-and-54n9.onrender.com/admin/dashboard")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load admin dashboard");

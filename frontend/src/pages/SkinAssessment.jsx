@@ -69,7 +69,7 @@ function SkinAssessment({ onBackToDashboard }) {
     try {
       // STEP 1: Save assessment
       const response = await fetch(
-        "http://127.0.0.1:8000/skin-assessment",
+        "https://ai-powered-skin-intelligence-and-54n9.onrender.com/skin-assessment",
         {
           method: "POST",
           headers: {
@@ -106,7 +106,7 @@ function SkinAssessment({ onBackToDashboard }) {
       setAiLoading(true);
 
       const aiResponse = await fetch(
-        `http://127.0.0.1:8000/ai-predict/${userId}`
+        `https://ai-powered-skin-intelligence-and-54n9.onrender.com/ai-predict/${userId}`
       );
 
       const aiData = await aiResponse.json();

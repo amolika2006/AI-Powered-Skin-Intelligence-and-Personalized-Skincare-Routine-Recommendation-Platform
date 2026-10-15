@@ -1,10 +1,16 @@
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import psycopg2
 from pwdlib import PasswordHash
 from ai_model import predict_skin_concern
+
+# Load the .env file located in the Backend folder
+load_dotenv(Path(__file__).resolve().parent / ".env")
 
 app = FastAPI()
 
@@ -25,8 +31,9 @@ conn = psycopg2.connect(
     database=os.getenv("DB_NAME", "skin_intelligence"),
     user=os.getenv("DB_USER", "postgres"),
     password=os.getenv("DB_PASSWORD"),
-    port=os.getenv("DB_PORT", "5432")
+    port=os.getenv("DB_PORT", "5432"),
 )
+
 
 
 # Registration data

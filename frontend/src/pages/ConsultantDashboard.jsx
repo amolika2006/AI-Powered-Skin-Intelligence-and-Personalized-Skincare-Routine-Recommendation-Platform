@@ -23,7 +23,7 @@ function ConsultantDashboard({ onBackToDashboard }) {
 };
 
 useEffect(() => {
-  fetch("http://127.0.0.1:8000/consultant/patients")
+  fetch("https://ai-powered-skin-intelligence-and-54n9.onrender.com/consultant/patients")
     .then((response) => response.json())
     .then((data) => {
       setPatients(data.patients || []);
@@ -34,7 +34,7 @@ useEffect(() => {
       setLoadingPatients(false);
     });
 
-    fetch("http://127.0.0.1:8000/consultant/assessments")
+    fetch("https://ai-powered-skin-intelligence-and-54n9.onrender.com/consultant/assessments")
   .then((response) => response.json())
   .then((data) => {
     setAssessments(data.assessments || []);
@@ -45,7 +45,7 @@ useEffect(() => {
     setLoadingAssessments(false);
   });
 
-  fetch("http://127.0.0.1:8000/consultant/consultations")
+  fetch("https://ai-powered-skin-intelligence-and-54n9.onrender.com/consultant/consultations")
   .then((response) => response.json())
   .then((data) => {
     setConsultations(data.consultations || []);
@@ -60,7 +60,7 @@ useEffect(() => {
 useEffect(() => {
       if (!selectedPatient) return;
 
-  fetch(`http://127.0.0.1:8000/consultant/guidance/${selectedPatient.id}`)
+  fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/consultant/guidance/${selectedPatient.id}`)
     .then((response) => response.json())
     .then((data) => {
       setSavedGuidance(data.guidance || []);
@@ -184,7 +184,7 @@ if (selectedPatient) {
 
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/consultant/guidance",
+      "https://ai-powered-skin-intelligence-and-54n9.onrender.com/consultant/guidance",
       {
         method: "POST",
         headers: {
@@ -377,7 +377,7 @@ if (selectedPatient) {
 
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/consultant/consultations/${consultation.id}/status`,
+          `https://ai-powered-skin-intelligence-and-54n9.onrender.com/consultant/consultations/${consultation.id}/status`,
           {
             method: "PUT",
             headers: {

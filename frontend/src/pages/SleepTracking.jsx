@@ -26,7 +26,7 @@ function SleepTracking({ onBackToDashboard }) {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/sleep",
+        "https://ai-powered-skin-intelligence-and-54n9.onrender.com/sleep",
         {
           method: "POST",
           headers: {

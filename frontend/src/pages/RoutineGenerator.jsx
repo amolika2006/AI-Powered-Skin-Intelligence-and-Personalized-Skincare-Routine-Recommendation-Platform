@@ -13,7 +13,7 @@ function RoutineGenerator({ onBackToDashboard }) {
     return;
   }
 
-  fetch(`http://127.0.0.1:8000/skin-profile/${userId}`)
+  fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/skin-profile/${userId}`)
     .then((response) => response.json())
     .then((data) => {
       if (!data.message && !data.error) {

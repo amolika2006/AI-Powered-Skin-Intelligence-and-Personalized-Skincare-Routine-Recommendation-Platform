@@ -33,7 +33,7 @@ const latestRecord = records.length > 0
   }
 
   // Analytics API
-  fetch(`http://127.0.0.1:8000/analytics/${userId}`)
+  fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/analytics/${userId}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to load analytics");
@@ -53,7 +53,7 @@ const latestRecord = records.length > 0
     });
 
   // AI Prediction API
-  fetch(`http://127.0.0.1:8000/ai-predict/${userId}`)
+  fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/ai-predict/${userId}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to load AI prediction");

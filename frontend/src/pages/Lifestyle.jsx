@@ -27,7 +27,7 @@ function Lifestyle({ onBackToDashboard }) {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/lifestyle",
+        "https://ai-powered-skin-intelligence-and-54n9.onrender.com/lifestyle",
         {
           method: "POST",
           headers: {

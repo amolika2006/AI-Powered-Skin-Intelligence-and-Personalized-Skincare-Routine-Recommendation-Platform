@@ -10,7 +10,7 @@ function BookConsultation({ onBackToDashboard }) {
 
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/user/consultants")
+    fetch("https://ai-powered-skin-intelligence-and-54n9.onrender.com/user/consultants")
       .then((response) => response.json())
       .then((data) => {
         setConsultants(data.consultants || []);
@@ -39,7 +39,7 @@ function BookConsultation({ onBackToDashboard }) {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/user/consultations",
+        "https://ai-powered-skin-intelligence-and-54n9.onrender.com/user/consultations",
         {
           method: "POST",
           headers: {

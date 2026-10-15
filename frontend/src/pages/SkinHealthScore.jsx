@@ -14,7 +14,7 @@ function SkinHealthScore({ onBackToDashboard }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:8000/skin-profile/${userId}`)
+    fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/skin-profile/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         if (!data.message && !data.error) {
@@ -34,7 +34,7 @@ function SkinHealthScore({ onBackToDashboard }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:8000/lifestyle/${userId}`)
+    fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/lifestyle/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         if (!data.message && !data.error) {
@@ -52,7 +52,7 @@ function SkinHealthScore({ onBackToDashboard }) {
     return;
   }
 
-  fetch(`http://127.0.0.1:8000/sleep/${userId}`)
+  fetch(`https://ai-powered-skin-intelligence-and-54n9.onrender.com/sleep/${userId}`)
     .then((response) => response.json())
     .then((data) => {
       if (!data.message && !data.error) {

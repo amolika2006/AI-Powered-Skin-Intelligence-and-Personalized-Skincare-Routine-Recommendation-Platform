@@ -25,7 +25,7 @@ function ProductRecommendations({ onBackToDashboard }) {
         setError("");
 
         const response = await fetch(
-          `http://127.0.0.1:8000/recommendations/${userId}`
+          `https://ai-powered-skin-intelligence-and-54n9.onrender.com/recommendations/${userId}`
         );
 
         if (!response.ok) {

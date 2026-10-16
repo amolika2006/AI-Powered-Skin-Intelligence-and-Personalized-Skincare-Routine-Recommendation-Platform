@@ -641,6 +641,7 @@ def get_ingredients():
 
     except Exception as e:
         conn.rollback()
+        print("INGREDIENTS: transaction rollback completed")
         print("GET INGREDIENTS ERROR:", repr(e))
 
         raise HTTPException(

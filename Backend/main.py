@@ -464,7 +464,7 @@ class HydrationData(BaseModel):
     user_id: int
     water_intake: str = ""
     glasses: int = 0
-    goal: int = 0
+    goal: str = ""
 
 
 @app.post("/hydration")

@@ -375,14 +375,13 @@ class SleepData(BaseModel):
     duration: str = ""
     quality: str = ""
     interruptions: str = ""
-
-
 @app.post("/lifestyle")
 def save_lifestyle(data: LifestyleData):
     cursor = conn.cursor()
 
     try:
-        conn.rollback()  # Reset any previously failed transaction
+        # Clear any previously failed transaction
+        conn.rollback()
 
         cursor.execute(
             """
@@ -417,6 +416,7 @@ def save_lifestyle(data: LifestyleData):
 
     finally:
         cursor.close()
+
 
 @app.get("/sleep/{user_id}")
 def get_sleep(user_id: int):

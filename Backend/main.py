@@ -463,38 +463,98 @@ def get_skin_profile(user_id: int):
 class HydrationData(BaseModel):
     user_id: int
     water_intake: str = ""
-    glasses: str = ""
-    goal: str = ""
+    glasses: int = 0
+    goal: int = 0
 
 
 @app.post("/hydration")
 def save_hydration(data: HydrationData):
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
-        INSERT INTO hydration_tracking
-        (user_id, water_intake, glasses, goal)
-        VALUES (%s, %s, %s, %s)
-        RETURNING id;
-        """,
-        (
-            data.user_id,
-            data.water_intake,
-            data.glasses,
-            data.goal
+    try:
+        conn.rollback()
+
+        cursor.execute(
+            """
+            INSERT INTO public.hydration_tracking
+                (user_id, water_intake, glasses, goal)
+            VALUES (%s, %s, %s, %s)
+            RETURNING id;
+            """,
+            (
+                data.user_id,
+                data.water_intake,
+                data.glasses,
+                data.goal,
+            ),
         )
-    )
 
-    hydration_id = cursor.fetchone()[0]
+        hydration_id = cursor.fetchone()[0]
+        conn.commit()
 
-    conn.commit()
-    cursor.close()
+        return {
+            "message": "Hydration data saved successfully",
+            "hydration_id": hydration_id,
+        }
 
-    return {
-        "message": "Hydration data saved successfully",
-        "hydration_id": hydration_id
-    }
+    except Exception as e:
+        conn.rollback()
+        print("HYDRATION SQL ERROR:", repr(e))
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unable to save hydration data: {str(e)}",
+        )
+
+    finally:
+        cursor.close()
+
+
+@app.get("/hydration/{user_id}")
+def get_hydration(user_id: int):
+    cursor = conn.cursor()
+
+    try:
+        conn.rollback()
+
+        cursor.execute(
+            """
+            SELECT id, user_id, water_intake, glasses, goal
+            FROM public.hydration_tracking
+            WHERE user_id = %s
+            ORDER BY id DESC;
+            """,
+            (user_id,)
+        )
+
+        rows = cursor.fetchall()
+
+        return {
+            "user_id": user_id,
+            "hydration_records": [
+                {
+                    "id": row[0],
+                    "user_id": row[1],
+                    "water_intake": row[2],
+                    "glasses": row[3],
+                    "goal": row[4]
+                }
+                for row in rows
+            ]
+        }
+
+    except Exception as e:
+        conn.rollback()
+        print("GET HYDRATION SQL ERROR:", repr(e))
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to retrieve hydration data"
+        )
+
+    finally:
+        cursor.close()
+
+
+    
 class SkinAssessmentData(BaseModel):
     user_id: int
     acne: str

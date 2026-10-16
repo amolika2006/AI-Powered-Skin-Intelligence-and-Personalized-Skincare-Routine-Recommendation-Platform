@@ -367,6 +367,7 @@ def get_lifestyle(user_id: int):
         return {
             "error": str(e)
         }
+
 # Sleep tracking data
 class SleepData(BaseModel):
     user_id: int
@@ -375,85 +376,89 @@ class SleepData(BaseModel):
     duration: str = ""
     quality: str = ""
     interruptions: str = ""
-@app.post("/lifestyle")
-def save_lifestyle(data: LifestyleData):
+
+
+@app.post("/sleep")
+def save_sleep(data: SleepData):
     cursor = conn.cursor()
 
     try:
-        # Clear any previously failed transaction
         conn.rollback()
 
         cursor.execute(
             """
-            INSERT INTO public.lifestyle_tracking
-            (user_id, water_intake, exercise, diet, smoking, alcohol, sunscreen)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO public.sleep_tracking
+            (user_id, sleep_time, wake_time, duration, quality, interruptions)
+            VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING id;
             """,
             (
                 data.user_id,
-                data.water_intake,
-                data.exercise,
-                data.diet,
-                data.smoking,
-                data.alcohol,
-                data.sunscreen,
+                data.sleep_time,
+                data.wake_time,
+                data.duration,
+                data.quality,
+                data.interruptions,
             ),
         )
 
-        lifestyle_id = cursor.fetchone()[0]
+        sleep_id = cursor.fetchone()[0]
         conn.commit()
 
         return {
-            "message": "Lifestyle data saved successfully",
-            "lifestyle_id": lifestyle_id,
+            "message": "Sleep information saved successfully",
+            "sleep_id": sleep_id,
         }
 
     except Exception as e:
         conn.rollback()
-        print("LIFESTYLE SQL ERROR:", repr(e))
+        print("SLEEP SQL ERROR:", repr(e))
         raise
 
     finally:
         cursor.close()
 
 
-@app.get("/sleep/{user_id}")
-def get_sleep(user_id: int):
-    try:
-        cursor = conn.cursor()
+@app.get("/skin-profile/{user_id}")
+def get_skin_profile(user_id: int):
+    cursor = conn.cursor()
 
+    try:
         cursor.execute(
             """
-            SELECT sleep_time, wake_time, duration, quality, interruptions
-            FROM sleep_tracking
+            SELECT skin_type, age_group, concerns, allergies, sensitivities
+            FROM public.skin_profiles
             WHERE user_id = %s
             ORDER BY id DESC
-            LIMIT 1
+            LIMIT 1;
             """,
             (user_id,)
         )
 
-        sleep = cursor.fetchone()
-        cursor.close()
+        profile = cursor.fetchone()
 
-        if not sleep:
-            return {
-                "message": "Sleep data not found"
-            }
+        if not profile:
+            return {"message": "Skin profile not found"}
 
         return {
-            "sleep_time": str(sleep[0]) if sleep[0] else "",
-            "wake_time": str(sleep[1]) if sleep[1] else "",
-            "duration": sleep[2],
-            "quality": sleep[3],
-            "interruptions": sleep[4]
+            "skin_type": profile[0],
+            "age_group": profile[1],
+            "concerns": profile[2],
+            "allergies": profile[3],
+            "sensitivities": profile[4]
         }
 
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        conn.rollback()
+        print("GET SKIN PROFILE ERROR:", repr(e))
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to retrieve skin profile"
+        )
+
+    finally:
+        cursor.close()
+
 # Hydration tracking data
 class HydrationData(BaseModel):
     user_id: int

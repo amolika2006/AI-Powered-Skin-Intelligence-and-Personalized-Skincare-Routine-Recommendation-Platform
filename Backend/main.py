@@ -377,36 +377,46 @@ class SleepData(BaseModel):
     interruptions: str = ""
 
 
-@app.post("/sleep")
-def save_sleep(data: SleepData):
+@app.post("/lifestyle")
+def save_lifestyle(data: LifestyleData):
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
-        INSERT INTO sleep_tracking
-        (user_id, sleep_time, wake_time, duration, quality, interruptions)
-        VALUES (%s, %s, %s, %s, %s, %s)
-        RETURNING id;
-        """,
-        (
-            data.user_id,
-            data.sleep_time,
-            data.wake_time,
-            data.duration,
-            data.quality,
-            data.interruptions
+    try:
+        conn.rollback()  # Reset any previously failed transaction
+
+        cursor.execute(
+            """
+            INSERT INTO public.lifestyle_tracking
+            (user_id, water_intake, exercise, diet, smoking, alcohol, sunscreen)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            RETURNING id;
+            """,
+            (
+                data.user_id,
+                data.water_intake,
+                data.exercise,
+                data.diet,
+                data.smoking,
+                data.alcohol,
+                data.sunscreen,
+            ),
         )
-    )
 
-    sleep_id = cursor.fetchone()[0]
+        lifestyle_id = cursor.fetchone()[0]
+        conn.commit()
 
-    conn.commit()
-    cursor.close()
+        return {
+            "message": "Lifestyle data saved successfully",
+            "lifestyle_id": lifestyle_id,
+        }
 
-    return {
-        "message": "Sleep data saved successfully",
-        "sleep_id": sleep_id
-    }
+    except Exception as e:
+        conn.rollback()
+        print("LIFESTYLE SQL ERROR:", repr(e))
+        raise
+
+    finally:
+        cursor.close()
 
 @app.get("/sleep/{user_id}")
 def get_sleep(user_id: int):

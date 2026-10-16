@@ -1349,30 +1349,27 @@ def get_recommendations(user_id: int):
             detail="Recommendation server error"
         )
 
+
 @app.post("/progress")
 def save_progress(progress: ProgressData):
+    cursor = None
+
     try:
+        conn.rollback()
         cursor = conn.cursor()
 
         cursor.execute("""
-            INSERT INTO progress_tracking (
-                user_id,
-                progress_date,
-                skin_health_score,
-                acne_level,
-                dryness_level,
-                oiliness_level,
-                redness_level,
-                pigmentation_level,
-                sensitivity_level,
-                routine_adherence,
-                notes
+            INSERT INTO public.progress_tracking (
+                user_id, progress_date, skin_health_score,
+                acne_level, dryness_level, oiliness_level,
+                redness_level, pigmentation_level, sensitivity_level,
+                routine_adherence, notes
             )
             VALUES (
                 %s, CURRENT_DATE, %s, %s, %s, %s, %s, %s, %s, %s, %s
             )
             RETURNING id;
-        """,  (
+        """, (
             progress.user_id,
             progress.skin_health_score,
             progress.acne_level,
@@ -1386,9 +1383,7 @@ def save_progress(progress: ProgressData):
         ))
 
         progress_id = cursor.fetchone()[0]
-
         conn.commit()
-        cursor.close()
 
         return {
             "message": "Progress saved successfully",
@@ -1397,47 +1392,42 @@ def save_progress(progress: ProgressData):
 
     except Exception as e:
         conn.rollback()
-        print("PROGRESS ERROR:", e)
-
+        print("PROGRESS ERROR:", repr(e))
         raise HTTPException(
             status_code=500,
-            detail="Unable to save progress"
+            detail=f"Unable to save progress: {str(e)}"
         )
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+
 @app.get("/progress/{user_id}")
 def get_progress(user_id: int):
+    cursor = None
+
     try:
+        conn.rollback()
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT
-                id,
-                user_id,
-                progress_date,
-                skin_health_score,
-                acne_level,
-                dryness_level,
-                oiliness_level,
-                redness_level,
-                pigmentation_level,
-                sensitivity_level,
-                routine_adherence,
-                notes,
-                created_at
-            FROM progress_tracking
+            SELECT id, user_id, progress_date, skin_health_score,
+                   acne_level, dryness_level, oiliness_level,
+                   redness_level, pigmentation_level, sensitivity_level,
+                   routine_adherence, notes, created_at
+            FROM public.progress_tracking
             WHERE user_id = %s
             ORDER BY progress_date DESC, id DESC;
         """, (user_id,))
 
         rows = cursor.fetchall()
-        cursor.close()
 
-        progress_data = []
-
-        for row in rows:
-            progress_data.append({
+        return [
+            {
                 "id": row[0],
                 "user_id": row[1],
-                "progress_date": str(row[2]),
+                "progress_date": str(row[2]) if row[2] else None,
                 "skin_health_score": row[3],
                 "acne_level": row[4],
                 "dryness_level": row[5],
@@ -1447,18 +1437,24 @@ def get_progress(user_id: int):
                 "sensitivity_level": row[9],
                 "routine_adherence": row[10],
                 "notes": row[11],
-                "created_at": str(row[12])
-            })
-
-        return progress_data
+                "created_at": str(row[12]) if row[12] else None
+            }
+            for row in rows
+        ]
 
     except Exception as e:
-        print("GET PROGRESS ERROR:", e)
-
+        conn.rollback()
+        print("GET PROGRESS ERROR:", repr(e))
         raise HTTPException(
             status_code=500,
-            detail="Unable to retrieve progress"
+            detail=f"Unable to retrieve progress: {str(e)}"
         )
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+
 @app.get("/analytics/{user_id}")
 def get_analytics(user_id: int):
     try:

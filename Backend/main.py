@@ -617,41 +617,41 @@ def save_skin_assessment(data: SkinAssessmentData):
             "error": str(e)
         }
 
+
 @app.get("/ingredients")
 def get_ingredients():
+    cursor = None
+
     try:
+        conn.rollback()
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT id, name, category, description, benefits,
-                   suitable_skin_types, target_concerns, warnings
-            FROM ingredients
+            SELECT id, name
+            FROM public.ingredients
             ORDER BY name;
         """)
 
         rows = cursor.fetchall()
-        cursor.close()
 
-        ingredients = []
-
-        for row in rows:
-            ingredients.append({
-                "id": row[0],
-                "name": row[1],
-                "category": row[2],
-                "description": row[3],
-                "benefits": row[4],
-                "suitable_skin_types": row[5],
-                "target_concerns": row[6],
-                "warnings": row[7]
-            })
-
-        return ingredients
+        return [
+            {"id": row[0], "name": row[1]}
+            for row in rows
+        ]
 
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        conn.rollback()
+        print("GET INGREDIENTS ERROR:", repr(e))
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unable to retrieve ingredients: {str(e)}"
+        )
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
 
 
 @app.get("/ingredient/{ingredient_name}")

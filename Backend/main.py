@@ -210,32 +210,42 @@ def login_user(data: LoginData):
 def save_skin_profile(data: SkinProfileData):
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
-        INSERT INTO skin_profiles
-        (user_id, skin_type, age_group, concerns, allergies, sensitivities)
-        VALUES (%s, %s, %s, %s, %s, %s)
-        RETURNING id
-        """,
-        (
-            data.user_id,
-            data.skin_type,
-            data.age_group,
-            data.concerns,
-            data.allergies,
-            data.sensitivities
+    try:
+        # Reset any previously failed transaction
+        conn.rollback()
+
+        cursor.execute(
+            """
+            INSERT INTO skin_profiles
+            (user_id, skin_type, age_group, concerns, allergies, sensitivities)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING id
+            """,
+            (
+                data.user_id,
+                data.skin_type,
+                data.age_group,
+                data.concerns,
+                data.allergies,
+                data.sensitivities,
+            ),
         )
-    )
 
-    profile_id = cursor.fetchone()[0]
+        profile_id = cursor.fetchone()[0]
+        conn.commit()
 
-    conn.commit()
-    cursor.close()
+        return {
+            "message": "Skin profile saved successfully",
+            "profile_id": profile_id,
+        }
 
-    return {
-        "message": "Skin profile saved successfully",
-        "profile_id": profile_id
-    }
+    except Exception as e:
+        conn.rollback()
+        print("SKIN PROFILE SQL ERROR:", repr(e))
+        raise
+
+    finally:
+        cursor.close()
 
 
 @app.get("/skin-profile/{user_id}")

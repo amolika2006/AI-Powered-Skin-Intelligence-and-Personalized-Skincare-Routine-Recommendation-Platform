@@ -1562,10 +1562,15 @@ def get_analytics(user_id: int):
             status_code=500,
             detail="Unable to calculate analytics"
         )
+
 @app.get("/ai-predict/{user_id}")
 def ai_predict_skin_concern(user_id: int):
+    cursor = None
 
     try:
+        # Clear any failed transaction before querying.
+        conn.rollback()
+
         cursor = conn.cursor()
 
         cursor.execute("""
@@ -1584,6 +1589,7 @@ def ai_predict_skin_concern(user_id: int):
 
         assessment = cursor.fetchone()
         cursor.close()
+        cursor = None
 
         if not assessment:
             raise HTTPException(
@@ -1591,7 +1597,6 @@ def ai_predict_skin_concern(user_id: int):
                 detail="No skin assessment found for this user"
             )
 
-        # Convert assessment levels into numbers
         level_map = {
             "none": 0,
             "mild": 1,
@@ -1599,58 +1604,50 @@ def ai_predict_skin_concern(user_id: int):
             "severe": 3
         }
 
-        acne = level_map.get(
-            assessment[0].strip().lower(), 0
-        )
+        levels = []
 
-        dryness = level_map.get(
-            assessment[1].strip().lower(), 0
-        )
+        for value in assessment:
+            if value is None:
+                raise HTTPException(
+                    status_code=422,
+                    detail="Assessment contains a missing skin level"
+                )
 
-        oiliness = level_map.get(
-            assessment[2].strip().lower(), 0
-        )
+            level = level_map.get(str(value).strip().lower())
 
-        redness = level_map.get(
-            assessment[3].strip().lower(), 0
-        )
+            if level is None:
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"Unknown skin assessment level: {value}"
+                )
 
-        pigmentation = level_map.get(
-            assessment[4].strip().lower(), 0
-        )
+            levels.append(level)
 
-        sensitivity = level_map.get(
-            assessment[5].strip().lower(), 0
-        )
-
-        result = predict_skin_concern(
-            acne,
-            dryness,
-            oiliness,
-            redness,
-            pigmentation,
-            sensitivity
-        )
+        result = predict_skin_concern(*levels)
 
         return {
             "user_id": user_id,
             "ai_prediction": result["predicted_concern"],
             "confidence": result["confidence"],
-            "message": (
-                "AI model analyzed the latest skin assessment."
-            )
+            "message": "AI model analyzed the latest skin assessment."
         }
 
     except HTTPException:
+        conn.rollback()
         raise
 
     except Exception as e:
-        print("AI PREDICTION ERROR:", e)
+        conn.rollback()
+        print("AI PREDICTION ERROR:", repr(e))
 
         raise HTTPException(
             status_code=500,
             detail="Unable to generate AI skin prediction"
         )
+
+    finally:
+        if cursor is not None:
+            cursor.close()
 # =========================================================
 # ADMIN / EXECUTIVE DASHBOARD
 # =========================================================
